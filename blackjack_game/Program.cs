@@ -1,10 +1,16 @@
 ﻿/*// See https://aka.ms/new-console-template for more information
 Console.WriteLine("Hello, World!");*/
+
 Random random = new Random();
 Dictionary<string, int> TheCards = new Dictionary<string, int>()
 {
-    {"as", 1}, {"1", 1}, { "2", 2 }, { "3", 3 }, { "4", 4 }, { "5", 5 }, { "6", 6 }, { "7", 7 }, {"8", 8},{"9", 9},{"10", 10},{"jack", 11},{"queen", 12},{"king", 13},
+    {"as", 1}, { "2", 2 }, { "3", 3 }, { "4", 4 }, { "5", 5 }, { "6", 6 }, { "7", 7 }, {"8", 8},{"9", 9},{"10", 10},{"jack", 11},{"queen", 12},{"king", 13}
 }; //dictionary with the names and values of the cards
+Dictionary<string, int> myCards = new Dictionary<string, int>()
+{
+    {"as", 1}, { "2", 2 }, { "3", 3 }, { "4", 4 }, { "5", 5 }, { "6", 6 }, { "7", 7 }, {"8", 8},{"9", 9},{"10", 10},{"jack", 11},{"queen", 12},{"king", 13}
+};
+Dictionary<string, int> cupierCards = new Dictionary<string, int>();
 (string, int) distribute()
 {
     //Dictionary<string, int> interiorsCards = new Dictionary<string, int>() { };
@@ -21,25 +27,54 @@ Dictionary<string, int> TheCards = new Dictionary<string, int>()
         }
     }
     return (value, num);
-}
+} //function,give cards to the participants
+//problems with duplicate values 
 
+void compareCards(bool control)
+{
+    (string, int) valores;
+    if (control)
+    {
+        valores = distribute();
+        if (!myCards.ContainsKey(valores.Item1))
+        {
+            myCards.Add(valores.Item1, valores.Item2);
+        }
+        else
+        {
+            myCards.Add(valores.Item1 + Convert.ToString(myCards.Count), valores.Item2);
+        }
+    }
+    else
+    {
+        valores = distribute();
+        if (!cupierCards.ContainsKey(valores.Item1))
+        {
+            cupierCards.Add(valores.Item1, valores.Item2);
+        }
+        else
+        {
+            cupierCards.Add(valores.Item1 + Convert.ToString(cupierCards.Count), valores.Item2);
+        }
+    }
+} // this functionn check if the dictionary have repeat values
 
-
-Dictionary<string, int> myCards = new Dictionary<string, int>();
 int myValue = 0;
-Dictionary<string, int> cupierCards = new Dictionary<string, int>();
 int cupierValue = 0;
-(string, int) valores;
 while (true)
 {
-    valores = distribute();
+    compareCards(true);
+    compareCards(true);
+    compareCards(false);
+    compareCards(false);
+    /*valores = distribute();
     myCards.Add(valores.Item1, valores.Item2);
     valores = distribute();
     myCards.Add(valores.Item1, valores.Item2);
     valores = distribute();
     cupierCards.Add(valores.Item1, valores.Item2); 
     valores = distribute();
-    cupierCards.Add(valores.Item1, valores.Item2);
+    cupierCards.Add(valores.Item1, valores.Item2);*/
 
     foreach (KeyValuePair<string, int> kvp in myCards)
     {
