@@ -63,19 +63,12 @@ int myValue = 0;
 int cupierValue = 0;
 while (true)
 {
+    bool Control = Convert.ToBoolean(Console.ReadLine());
+    //if()
     compareCards(true);
     compareCards(true);
     compareCards(false);
     compareCards(false);
-    /*valores = distribute();
-    myCards.Add(valores.Item1, valores.Item2);
-    valores = distribute();
-    myCards.Add(valores.Item1, valores.Item2);
-    valores = distribute();
-    cupierCards.Add(valores.Item1, valores.Item2); 
-    valores = distribute();
-    cupierCards.Add(valores.Item1, valores.Item2);*/
-
     foreach (KeyValuePair<string, int> kvp in myCards)
     {
         Console.WriteLine($"Key user= {kvp.Key}");
@@ -99,6 +92,7 @@ while (true)
         Console.WriteLine("ya vete");
         break;
     }
+ 
 }
 
 
