@@ -1,6 +1,8 @@
 ﻿/*// See https://aka.ms/new-console-template for more information
 Console.WriteLine("Hello, World!");*/
 
+using System.Runtime.InteropServices;
+
 Random random = new Random();
 Dictionary<string, int> TheCards = new Dictionary<string, int>()
 {
@@ -56,58 +58,102 @@ void compareCards(bool control)
     }
 } // this functionn check if the dictionary have repeat values
 
-int myValue = 0;
-int cupierValue = 0;
+int lectura(Dictionary<string, int> internalDictionary, bool control)
+{
+    int contador = 0;
+    if (control)
+        Console.WriteLine("This is yours cards");
+    foreach (KeyValuePair<string, int> kvp in internalDictionary)
+    {
+        if (control)
+        {
+            Console.WriteLine($"Your card = {kvp.Key}");
+        }
+        contador += kvp.Value;
+    }
+    return contador;
+}// show the cards of the player have in any moment
+
+
+
+bool control = false;
 while (true)
 {
-    Console.WriteLine("Desea jugar una partida?\nEscribe true to say yes or false to say no");
-    bool Control = Convert.ToBoolean(Console.ReadLine());
-    if (Control)
+    int myValue;
+    int cupierValue;
+    myCards.Clear();
+    cupierCards.Clear();
+    if (control)
     {
         compareCards(true);
         compareCards(true);
         compareCards(false);
         compareCards(false);
+        myValue = lectura(myCards, true);
+        cupierValue = lectura(cupierCards, false);
         while (true)
         {
-            foreach (KeyValuePair<string, int> kvp in myCards)
+            Console.WriteLine("Do want one extra card?\nEscribe true to say yes or false to say no ");
+            if (Convert.ToBoolean(Console.ReadLine()))
             {
-                Console.WriteLine($"Key user= {kvp.Key}");
-                myValue += kvp.Value;
-            }
-            Console.WriteLine("Estas son tus cartas");
-            foreach (KeyValuePair<string, int> kvp in cupierCards)
-            {
-                Console.WriteLine($"Key cupier= {kvp.Key}");
-                cupierValue += kvp.Value;
-            }
-            if (myValue == 21)
-            {
-                Console.WriteLine("You win");
-            }
-            if(cupierValue == 21)
-            {
-                Console.WriteLine("");
+                compareCards(true);
+                myValue = lectura(myCards, true);
+                compareCards(false);
+                cupierValue = lectura(cupierCards, false);
+                if (myValue == 21)
+                {
+                    Console.WriteLine("You win");
+                    break;
+                }
+                else if (cupierValue == 21)
+                {
+                    Console.WriteLine("You lose");
+                    break;
+                }
+                else if (myValue >= 21)
+                {
+                    Console.WriteLine("Too far, you lose");
+                    break;
+                }
+                else if (cupierValue >= 21)
+                {
+                    Console.WriteLine("your enemy lose, you win");
+                }
             }
             else
             {
-
+                if (myValue == 21)
+                {
+                    Console.WriteLine("You win");
+                    break;
+                }
+                else if (cupierValue == 21)
+                {
+                    Console.WriteLine("You lose");
+                    break;
+                }
+                else if (myValue >= 21)
+                {
+                    Console.WriteLine("Too far, you lose");
+                    break;
+                }
+                else if (cupierValue >= 21)
+                {
+                    Console.WriteLine("your enemy lose, you win");
+                    break;
+                }
             }
+
         }
     }
-    else
+    Console.WriteLine("Do you want to play a match?\nEscribe true to say yes or false to say no");
+    control = Convert.ToBoolean(Console.ReadLine());
+    if (!control)
     {
-
-    }
-    Console.WriteLine("my value: {0}, cupier value: {1}", myValue, cupierValue);
-    Console.WriteLine("Desea continuar?\n presione true si es asi o false si no");
-
-    else
-    {
-        Console.WriteLine("ya vete");
+        Console.WriteLine("see you");
         break;
     }
- 
+
 }
 
 
